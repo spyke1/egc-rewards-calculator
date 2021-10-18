@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "egc-rewards",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

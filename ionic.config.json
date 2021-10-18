@@ -1,0 +1,7 @@
+{
+  "name": "egc-rewards",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
