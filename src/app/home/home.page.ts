@@ -34,7 +34,7 @@ export class HomePage implements OnInit {
   }
 
   loadLocalTokensBurned() {
-    const stringValue = localStorage.getItem('tokensBurned');
+    const stringValue = localStorage.getItem('egc_tokensBurned');
     const value = parseFloat(stringValue);
 
     if (!isNaN(value)) {
@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
   }
 
   loadLocalDailyVolume() {
-    const stringValue = localStorage.getItem('dailyVolume');
+    const stringValue = localStorage.getItem('egc_dailyVolume');
     const value = parseFloat(stringValue);
 
     if (!isNaN(value)) {
@@ -52,7 +52,7 @@ export class HomePage implements OnInit {
   }
 
   loadLocalTokensHeld() {
-    const stringValue = localStorage.getItem('tokensHeld');
+    const stringValue = localStorage.getItem('egc_tokensHeld');
     const value = parseFloat(stringValue);
 
     if (!isNaN(value)) {
@@ -90,7 +90,7 @@ export class HomePage implements OnInit {
 
       // save to local storage
       localStorage.setItem(
-        'tokensBurned',
+        'egc_tokensBurned',
         this.egcData.burnedTokens.toString()
       );
     }
@@ -105,7 +105,10 @@ export class HomePage implements OnInit {
       this.calculateRewards();
 
       // save to local storage
-      localStorage.setItem('dailyVolume', this.egcData.dailyVolume.toString());
+      localStorage.setItem(
+        'egc_dailyVolume',
+        this.egcData.dailyVolume.toString()
+      );
     }
   }
 
@@ -118,7 +121,7 @@ export class HomePage implements OnInit {
       this.calculateRewards();
 
       // save to local storage
-      localStorage.setItem('tokensHeld', this.egcData.egcHeld.toString());
+      localStorage.setItem('egc_tokensHeld', this.egcData.egcHeld.toString());
     }
   }
 }
