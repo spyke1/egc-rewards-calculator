@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EgcData } from './egcdata.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { EgcData } from './egcdata.model';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   egcData: EgcData = {
     totalSupply: 1000000000000000,
     burnedTokens: 514725329117038,
@@ -23,6 +23,42 @@ export class HomePage {
     this.calculateRewards();
   }
 
+  ngOnInit() {
+    this.loadLocalStorage();
+  }
+
+  loadLocalStorage() {
+    this.loadLocalTokensBurned();
+    this.loadLocalDailyVolume();
+    this.loadLocalTokensHeld();
+  }
+
+  loadLocalTokensBurned() {
+    const stringValue = localStorage.getItem('tokensBurned');
+    const value = parseFloat(stringValue);
+
+    if (!isNaN(value)) {
+      this.egcData.burnedTokens = value;
+    }
+  }
+
+  loadLocalDailyVolume() {
+    const stringValue = localStorage.getItem('dailyVolume');
+    const value = parseFloat(stringValue);
+
+    if (!isNaN(value)) {
+      this.egcData.dailyVolume = value;
+    }
+  }
+
+  loadLocalTokensHeld() {
+    const stringValue = localStorage.getItem('tokensHeld');
+    const value = parseFloat(stringValue);
+
+    if (!isNaN(value)) {
+      this.egcData.egcHeld = value;
+    }
+  }
   updateCirculatingSupply() {
     this.egcData.circulatingSupply =
       this.egcData.totalSupply - this.egcData.burnedTokens;
@@ -51,6 +87,12 @@ export class HomePage {
       this.egcData.burnedTokens = parsedValue;
       this.updateCirculatingSupply();
       this.calculateRewards();
+
+      // save to local storage
+      localStorage.setItem(
+        'tokensBurned',
+        this.egcData.burnedTokens.toString()
+      );
     }
   }
 
@@ -61,6 +103,9 @@ export class HomePage {
     if (!isNaN(parsedValue)) {
       this.egcData.dailyVolume = parsedValue;
       this.calculateRewards();
+
+      // save to local storage
+      localStorage.setItem('dailyVolume', this.egcData.dailyVolume.toString());
     }
   }
 
@@ -71,6 +116,9 @@ export class HomePage {
     if (!isNaN(parsedValue)) {
       this.egcData.egcHeld = parsedValue;
       this.calculateRewards();
+
+      // save to local storage
+      localStorage.setItem('tokensHeld', this.egcData.egcHeld.toString());
     }
   }
 }
