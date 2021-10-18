@@ -10,4 +10,80 @@
       <ion-title size="large">EverGrow Coin Rewards Calculator</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>EverGrow Coin Data</ion-card-title>
+          </ion-card-header>
+
+          <ion-item>
+            <ion-label>Tokens Burned</ion-label>
+            <ion-input
+              class="ion-text-center"
+              [value]="egcData.burnedTokens"
+              (input)="onChangeTokensBurned($event)"
+              color="primary"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Daily Volume</ion-label>
+            <ion-input
+              class="ion-text-center"
+              [value]="egcData.dailyVolume"
+              (input)="onChangeDailyVolume($event)"
+              color="primary"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Total Supply</ion-label>
+            <ion-label>{{egcData.totalSupply}}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Circulating Supply</ion-label>
+            <ion-label
+              >{{egcData.totalSupply - egcData.burnedTokens}}</ion-label
+            >
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Rewards %</ion-label>
+            <ion-label>{{egcData.rewardPercent | percent:'1.2'}}</ion-label>
+          </ion-item>
+        </ion-card>
+
+        <br />
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Your Wallet Data</ion-card-title>
+          </ion-card-header>
+
+          <ion-item>
+            <ion-label>EGC Held</ion-label>
+            <ion-input
+              [value]="egcData.egcHeld"
+              class="ion-text-center"
+              (input)="onChangeEgcHeld($event)"
+              color="primary"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Your Effective Reward %</ion-label>
+            <ion-label>{{effectivePercentage() | percent:'1.2-12' }}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Daily Rewards</ion-label>
+            <ion-label>{{rewards | currency:'USD':true:'1.2-4'}}</ion-label>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
