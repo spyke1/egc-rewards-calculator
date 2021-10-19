@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EgcData } from './egcdata.model';
+import { CoinDataService } from '../services/coindata.service';
+import { ITokenData } from '../models/tokendata';
 
 @Component({
   selector: 'app-home',
@@ -15,16 +17,27 @@ export class HomePage implements OnInit {
     dailyVolume: 1000000,
     egcHeld: 5000000000,
   };
+  tokenData: ITokenData;
 
   public rewards = 0;
 
-  constructor() {
+  constructor(private coinDataService: CoinDataService) {
     this.updateCirculatingSupply();
     this.calculateRewards();
   }
 
   ngOnInit() {
     this.loadLocalStorage();
+    this.getTokenData();
+  }
+
+  getTokenData() {
+    this.coinDataService.getCoinGeckoTokenData().subscribe((data) => {
+      this.tokenData = data;
+      this.egcData.dailyVolume = this.tokenData.totalVolume;
+      this.saveLocalDailyVolume();
+      //console.log(data);
+    });
   }
 
   loadLocalStorage() {
@@ -59,6 +72,14 @@ export class HomePage implements OnInit {
       this.egcData.egcHeld = value;
     }
   }
+
+  saveLocalDailyVolume() {
+    localStorage.setItem(
+      'egc_dailyVolume',
+      this.egcData.dailyVolume.toString()
+    );
+  }
+
   updateCirculatingSupply() {
     this.egcData.circulatingSupply =
       this.egcData.totalSupply - this.egcData.burnedTokens;
@@ -105,10 +126,7 @@ export class HomePage implements OnInit {
       this.calculateRewards();
 
       // save to local storage
-      localStorage.setItem(
-        'egc_dailyVolume',
-        this.egcData.dailyVolume.toString()
-      );
+      this.saveLocalDailyVolume();
     }
   }
 
