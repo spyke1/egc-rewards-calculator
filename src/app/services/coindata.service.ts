@@ -31,6 +31,21 @@ export class CoinDataService {
       .pipe(map((data: any) => ({ result: data.result } as BscResponse)));
   }
 
+  getBscWalletEGCHeld(walletAddress: string): Observable<BscResponse> {
+    const baseUrl = 'https://api.bscscan.com/api';
+    const mod = 'account';
+    const action = 'tokenbalance';
+    const ca = '0xc001bbe2b87079294c63ece98bdd0a88d761434e';
+    const address = walletAddress;
+    const apiKey = 'R5XDMK6J8GX4GQDD3A3IDZI1GPQAIIY9A3';
+
+    const url = `${baseUrl}?module=${mod}&action=${action}&contractaddress=${ca}&address=${address}&apikey=${apiKey}`;
+
+    return this.http
+      .get(url)
+      .pipe(map((data: any) => ({ result: data.result } as BscResponse)));
+  }
+
   getCoinGeckoTokenData(): Observable<ITokenData> {
     const url =
       'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=evergrowcoin';

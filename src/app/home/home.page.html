@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>EverGrow Coin Rewards Calculator</ion-title>
+    <ion-title>EverGrowCoin Rewards Calculator</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -72,6 +72,20 @@
           </ion-card-header>
 
           <ion-item>
+            <ion-label>Wallet Address</ion-label>
+            <ion-input
+              [value]="walletAddress"
+              class="ion-text-center"
+              (input)="onChangeWalletAddress($event)"
+              color="primary"
+              autocomplete="off"
+            ></ion-input>
+            <ion-button icon-only (click)="getWalletAddressEGCHeld()">
+              <ion-icon name="refresh-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item>
             <ion-label>EGC Held</ion-label>
             <ion-input
               [value]="egcData.egcHeld"
@@ -80,6 +94,9 @@
               color="primary"
               autocomplete="off"
             ></ion-input>
+            <ion-button icon-only (click)="getWalletAddressEGCHeld()">
+              <ion-icon name="refresh-outline"></ion-icon>
+            </ion-button>
           </ion-item>
 
           <ion-item>
@@ -91,6 +108,18 @@
             <ion-label>Daily Rewards (in BUSD)</ion-label>
             <ion-label>{{rewards | currency:'USD':"symbol":'1.2-4'}}</ion-label>
           </ion-item>
+        </ion-card>
+
+        <br />
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>About</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Made with love by Jared Hodgkins. Find me on the official EGC
+            Telegram if you notice any issues!
+          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>

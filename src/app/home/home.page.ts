@@ -20,6 +20,8 @@ export class HomePage implements OnInit {
   };
   tokenData: ITokenData;
   bscBurnedResult: BscResponse;
+  bscWalletEGCHeld: BscResponse;
+  walletAddress: string;
 
   public rewards = 0;
 
@@ -30,8 +32,26 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadLocalStorage();
-    this.getBscBurnData();
-    this.getTokenData();
+    //this.getBscBurnData();
+    //this.getTokenData();
+  }
+
+  getWalletAddressEGCHeld() {
+    if (this.walletAddress !== '') {
+      this.coinDataService
+        .getBscWalletEGCHeld(this.walletAddress)
+        .subscribe((data) => {
+          this.bscWalletEGCHeld = data;
+          const value = parseFloat(data.result);
+          if (!isNaN(value)) {
+            const decValue = value * 0.000000001;
+            this.egcData.egcHeld = decValue;
+            this.saveLocalEGCHeld();
+            this.calculateRewards();
+          }
+          //console.log(data);
+        });
+    }
   }
 
   getBscBurnData() {
@@ -41,7 +61,7 @@ export class HomePage implements OnInit {
       if (!isNaN(value)) {
         const decValue = value * 0.000000001;
         this.egcData.burnedTokens = decValue;
-        this.saveLocalDailyVolume();
+        this.saveLocalTokensBurned();
       }
       //console.log(data);
     });
@@ -59,7 +79,12 @@ export class HomePage implements OnInit {
   loadLocalStorage() {
     this.loadLocalTokensBurned();
     this.loadLocalDailyVolume();
+    this.loadLocalWalletAddress();
     this.loadLocalTokensHeld();
+  }
+
+  loadLocalWalletAddress() {
+    this.walletAddress = localStorage.getItem('egc_walletAddress');
   }
 
   loadLocalTokensBurned() {
@@ -101,6 +126,14 @@ export class HomePage implements OnInit {
       'egc_tokensBurned',
       this.egcData.burnedTokens.toString()
     );
+  }
+
+  saveLocalWalletAddress() {
+    localStorage.setItem('egc_walletAddress', this.walletAddress);
+  }
+
+  saveLocalEGCHeld() {
+    localStorage.setItem('egc_tokensHeld', this.egcData.egcHeld.toString());
   }
 
   updateCirculatingSupply() {
@@ -162,7 +195,17 @@ export class HomePage implements OnInit {
       this.calculateRewards();
 
       // save to local storage
-      localStorage.setItem('egc_tokensHeld', this.egcData.egcHeld.toString());
+      this.saveLocalEGCHeld();
     }
+  }
+
+  onChangeWalletAddress(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+
+    this.walletAddress = value;
+    //this.calculateRewards();
+
+    // save to local storage
+    this.saveLocalWalletAddress();
   }
 }
