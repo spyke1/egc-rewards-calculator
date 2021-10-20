@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EgcData } from './egcdata.model';
 import { CoinDataService } from '../services/coindata.service';
 import { ITokenData } from '../models/tokendata';
+import { BscResponse } from '../models/bscresponse';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomePage implements OnInit {
     egcHeld: 5000000000,
   };
   tokenData: ITokenData;
+  bscBurnedResult: BscResponse;
 
   public rewards = 0;
 
@@ -28,7 +30,21 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadLocalStorage();
+    this.getBscBurnData();
     this.getTokenData();
+  }
+
+  getBscBurnData() {
+    this.coinDataService.getBscBurnData().subscribe((data) => {
+      this.bscBurnedResult = data;
+      const value = parseFloat(data.result);
+      if (!isNaN(value)) {
+        const decValue = value * 0.000000001;
+        this.egcData.burnedTokens = decValue;
+        this.saveLocalDailyVolume();
+      }
+      //console.log(data);
+    });
   }
 
   getTokenData() {
@@ -77,6 +93,13 @@ export class HomePage implements OnInit {
     localStorage.setItem(
       'egc_dailyVolume',
       this.egcData.dailyVolume.toString()
+    );
+  }
+
+  saveLocalTokensBurned() {
+    localStorage.setItem(
+      'egc_tokensBurned',
+      this.egcData.burnedTokens.toString()
     );
   }
 
