@@ -12,11 +12,11 @@ import { BscResponse } from '../models/bscresponse';
 export class HomePage implements OnInit {
   egcData: EgcData = {
     totalSupply: 1000000000000000,
-    burnedTokens: 514725329117038,
-    circulatingSupply: 1000000000000,
+    burnedTokens: 0,
+    circulatingSupply: 1000000000000000,
     rewardPercent: 0.08,
-    dailyVolume: 1000000,
-    egcHeld: 5000000000,
+    dailyVolume: 0,
+    egcHeld: 1000000000,
   };
   tokenData: ITokenData;
   bscBurnedResult: BscResponse;
@@ -25,15 +25,18 @@ export class HomePage implements OnInit {
 
   public rewards = 0;
 
-  constructor(private coinDataService: CoinDataService) {
-    this.updateCirculatingSupply();
-    this.calculateRewards();
-  }
+  constructor(private coinDataService: CoinDataService) {}
 
   ngOnInit() {
     this.loadLocalStorage();
-    //this.getBscBurnData();
-    //this.getTokenData();
+    if (this.egcData.burnedTokens <= 0) {
+      this.getBscBurnData();
+    }
+    if (this.egcData.dailyVolume <= 0) {
+      this.getTokenData();
+    }
+    this.updateCirculatingSupply();
+    this.calculateRewards();
   }
 
   getWalletAddressEGCHeld() {
@@ -62,6 +65,8 @@ export class HomePage implements OnInit {
         const decValue = value * 0.000000001;
         this.egcData.burnedTokens = decValue;
         this.saveLocalTokensBurned();
+        this.updateCirculatingSupply();
+        this.calculateRewards();
       }
       //console.log(data);
     });
@@ -72,6 +77,7 @@ export class HomePage implements OnInit {
       this.tokenData = data;
       this.egcData.dailyVolume = this.tokenData.totalVolume;
       this.saveLocalDailyVolume();
+      this.calculateRewards();
       //console.log(data);
     });
   }
