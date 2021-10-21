@@ -13,6 +13,7 @@ export class HomePage implements OnInit {
   egcData: EgcData = {
     totalSupply: 1000000000000000,
     burnedTokens: 0,
+    teamTokensHeld: 0,
     circulatingSupply: 1000000000000000,
     rewardPercent: 0.08,
     dailyVolume: 0,
@@ -20,6 +21,7 @@ export class HomePage implements OnInit {
   };
   tokenData: ITokenData;
   bscBurnedResult: BscResponse;
+  bscTeamTokensResult: BscResponse;
   bscWalletEGCHeld: BscResponse;
   walletAddress: string;
 
@@ -29,14 +31,9 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadLocalStorage();
-    if (this.egcData.burnedTokens <= 0) {
-      this.getBscBurnData();
-    }
-    if (this.egcData.dailyVolume <= 0) {
-      this.getTokenData();
-    }
-    this.updateCirculatingSupply();
-    this.calculateRewards();
+    this.getBscBurnData();
+    this.getBscTeamTokensData();
+    this.getTokenData();
   }
 
   getWalletAddressEGCHeld() {
@@ -66,6 +63,20 @@ export class HomePage implements OnInit {
         this.egcData.burnedTokens = decValue;
         this.saveLocalTokensBurned();
         this.updateCirculatingSupply();
+        this.calculateRewards();
+      }
+      //console.log(data);
+    });
+  }
+
+  getBscTeamTokensData() {
+    this.coinDataService.getBscTeamData().subscribe((data) => {
+      this.bscTeamTokensResult = data;
+      const value = parseFloat(data.result);
+      if (!isNaN(value)) {
+        const decValue = value * 0.000000001;
+        this.egcData.teamTokensHeld = decValue;
+        this.saveLocalTeamTokensHeld();
         this.calculateRewards();
       }
       //console.log(data);
@@ -102,6 +113,15 @@ export class HomePage implements OnInit {
     }
   }
 
+  loadLocalTeamTokensHeld() {
+    const stringValue = localStorage.getItem('egc_teamTokensHeld');
+    const value = parseFloat(stringValue);
+
+    if (!isNaN(value)) {
+      this.egcData.teamTokensHeld = value;
+    }
+  }
+
   loadLocalDailyVolume() {
     const stringValue = localStorage.getItem('egc_dailyVolume');
     const value = parseFloat(stringValue);
@@ -134,6 +154,13 @@ export class HomePage implements OnInit {
     );
   }
 
+  saveLocalTeamTokensHeld() {
+    localStorage.setItem(
+      'egc_teamTokensHeld',
+      this.egcData.teamTokensHeld.toString()
+    );
+  }
+
   saveLocalWalletAddress() {
     localStorage.setItem('egc_walletAddress', this.walletAddress);
   }
@@ -147,6 +174,14 @@ export class HomePage implements OnInit {
       this.egcData.totalSupply - this.egcData.burnedTokens;
   }
 
+  rewardSupply() {
+    return (
+      this.egcData.totalSupply -
+      this.egcData.burnedTokens -
+      this.egcData.teamTokensHeld
+    );
+  }
+
   calculateRewards() {
     const totalDistribution = this.totalDistribution();
     const effectivePercentage = this.effectivePercentage();
@@ -158,7 +193,7 @@ export class HomePage implements OnInit {
   }
 
   effectivePercentage() {
-    return this.egcData.egcHeld / this.egcData.circulatingSupply;
+    return this.egcData.egcHeld / this.rewardSupply();
   }
 
   // onChange Methods
@@ -168,14 +203,9 @@ export class HomePage implements OnInit {
 
     if (!isNaN(parsedValue)) {
       this.egcData.burnedTokens = parsedValue;
+      this.saveLocalTokensBurned();
       this.updateCirculatingSupply();
       this.calculateRewards();
-
-      // save to local storage
-      localStorage.setItem(
-        'egc_tokensBurned',
-        this.egcData.burnedTokens.toString()
-      );
     }
   }
 
