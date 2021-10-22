@@ -9,6 +9,7 @@
     "clear-env": "node clear-env.js",
     "push": "git push -u origin master",
     "predeploy": "func() { npm run clear-env && git add . && git commit -m \"$1\"; }; func",
+    "deploy": "func() { npm run clear-env && git add . && git commit -m \"$1\" && git push -u origin master; }; func",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
