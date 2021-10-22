@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
   bscTeamTokensResult: BscResponse;
   bscWalletEGCHeld: BscResponse;
   walletAddress: string;
+  totalRewardDistribution: number;
 
   public rewards = 0;
 
@@ -96,6 +97,7 @@ export class HomePage implements OnInit {
   loadLocalStorage() {
     this.loadLocalTokensBurned();
     this.loadLocalDailyVolume();
+    this.loadLocalTeamTokensHeld();
     this.loadLocalWalletAddress();
     this.loadLocalTokensHeld();
   }
@@ -183,9 +185,7 @@ export class HomePage implements OnInit {
   }
 
   calculateRewards() {
-    const totalDistribution = this.totalDistribution();
-    const effectivePercentage = this.effectivePercentage();
-    this.rewards = effectivePercentage * totalDistribution;
+    this.rewards = this.effectivePercentage() * this.totalDistribution();
   }
 
   totalDistribution() {
@@ -215,10 +215,8 @@ export class HomePage implements OnInit {
 
     if (!isNaN(parsedValue)) {
       this.egcData.dailyVolume = parsedValue;
-      this.calculateRewards();
-
-      // save to local storage
       this.saveLocalDailyVolume();
+      this.calculateRewards();
     }
   }
 
@@ -228,10 +226,8 @@ export class HomePage implements OnInit {
 
     if (!isNaN(parsedValue)) {
       this.egcData.egcHeld = parsedValue;
-      this.calculateRewards();
-
-      // save to local storage
       this.saveLocalEGCHeld();
+      this.calculateRewards();
     }
   }
 
@@ -239,9 +235,6 @@ export class HomePage implements OnInit {
     const value = (event.target as HTMLInputElement).value;
 
     this.walletAddress = value;
-    //this.calculateRewards();
-
-    // save to local storage
     this.saveLocalWalletAddress();
   }
 }
