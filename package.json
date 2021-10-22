@@ -11,7 +11,7 @@
     "predeploy": "func() { npm run clear-env && git add . && git commit -m \"$1\"; }; func",
     "deploy": "func() { npm run clear-env && git add . && git commit -m \"$1\" && git push -u origin master; }; func",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run config && ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
