@@ -15,7 +15,7 @@ export class CoinDataService {
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=evergrowcoin';
   private egcAddress = '0xc001bbe2b87079294c63ece98bdd0a88d761434e';
   private burnAddress = '0x000000000000000000000000000000000000dead';
-  private teamAddress = '0x4fcfd7a80019a4fc58960c0075514d59c2a3aac4';
+  private teamAddress = '0x4cf1c92b496d28032939ef5af7cb74699b29971b';
 
   constructor(private http: HttpClient) {}
 
