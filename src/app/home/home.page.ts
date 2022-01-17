@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
     burnedTokens: 0,
     teamTokensHeld: 0,
     circulatingSupply: 1000000000000000,
-    rewardPercent: 0.08,
+    rewardPercent: 0.10,
     dailyVolume: 0,
     egcHeld: 1000000000,
   };
