@@ -12,7 +12,7 @@ export class CoinDataService {
   private bscApiKey = environment.bscApiKey;
   private bscApiUrl = 'https://api.bscscan.com/api';
   private cgApiUrl =
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster!';
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster';
   private egcAddress = '0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9';
   private burnAddress = '0x000000000000000000000000000000000000dead';
   private teamAddress = '0xa95e8af8fd0471bc62ba05e86c49038a0c98545d';
@@ -21,7 +21,7 @@ export class CoinDataService {
 
   getTestData() {
     const url =
-      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster!';
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster';
 
     return this.http.get(url).pipe(map((res) => res[0]));
   }
