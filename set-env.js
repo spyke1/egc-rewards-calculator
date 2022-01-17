@@ -3,7 +3,7 @@ const path = require("path");
 // import { writeFile } from 'fs'; if you are using a typescript file
 
 const environmentFile = `export const environment = {
-  bscApiKey: '${process.env.BSC_EGC_API_KEY}', // add here your variables
+  bscApiKey: '${process.env.BSC_XEEB_API_KEY}', // add here your variables
   production: ${process.env.PRODUCTION}
 };
 `;

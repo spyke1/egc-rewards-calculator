@@ -13,7 +13,7 @@ export class CoinDataService {
   private bscApiUrl = 'https://api.bscscan.com/api';
   private cgApiUrl =
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=evergrowcoin';
-  private egcAddress = '0xc001bbe2b87079294c63ece98bdd0a88d761434e';
+  private XEEBAddress = '0xc001bbe2b87079294c63ece98bdd0a88d761434e';
   private burnAddress = '0x000000000000000000000000000000000000dead';
   private teamAddress = '0x4cf1c92b496d28032939ef5af7cb74699b29971b';
 
@@ -27,18 +27,18 @@ export class CoinDataService {
   }
 
   getBscBurnData(): Observable<BscResponse> {
-    return this.getBscWalletEGCHeld(this.burnAddress);
+    return this.getBscWalletXEEBHeld(this.burnAddress);
   }
 
   getBscTeamData(): Observable<BscResponse> {
-    return this.getBscWalletEGCHeld(this.teamAddress);
+    return this.getBscWalletXEEBHeld(this.teamAddress);
   }
 
-  getBscWalletEGCHeld(walletAddress: string): Observable<BscResponse> {
+  getBscWalletXEEBHeld(walletAddress: string): Observable<BscResponse> {
     const mod = 'account';
     const action = 'tokenbalance';
 
-    const url = `${this.bscApiUrl}?module=${mod}&action=${action}&contractaddress=${this.egcAddress}&address=${walletAddress}&apikey=${this.bscApiKey}`;
+    const url = `${this.bscApiUrl}?module=${mod}&action=${action}&contractaddress=${this.XEEBAddress}&address=${walletAddress}&apikey=${this.bscApiKey}`;
 
     return this.http
       .get(url)
