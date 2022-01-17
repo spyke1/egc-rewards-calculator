@@ -12,8 +12,8 @@ export class CoinDataService {
   private bscApiKey = environment.bscApiKey;
   private bscApiUrl = 'https://api.bscscan.com/api';
   private cgApiUrl =
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=evergrowcoin';
-  private egcAddress = '0xc001bbe2b87079294c63ece98bdd0a88d761434e';
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster';
+  private egcAddress = '0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9';
   private burnAddress = '0x000000000000000000000000000000000000dead';
   private teamAddress = '0x4cf1c92b496d28032939ef5af7cb74699b29971b';
 
@@ -21,7 +21,7 @@ export class CoinDataService {
 
   getTestData() {
     const url =
-      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=evergrowcoin';
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster';
 
     return this.http.get(url).pipe(map((res) => res[0]));
   }
@@ -47,7 +47,7 @@ export class CoinDataService {
 
   getCoinGeckoTokenData(): Observable<ITokenData> {
     const url =
-      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=evergrowcoin';
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster';
 
     return this.http.get(url).pipe(
       map(
