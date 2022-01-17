@@ -15,7 +15,7 @@ export class CoinDataService {
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster';
   private egcAddress = '0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9';
   private burnAddress = '0x000000000000000000000000000000000000dead';
-  private teamAddress = '0x4cf1c92b496d28032939ef5af7cb74699b29971b';
+  private teamAddress = '0xa95e8af8fd0471bc62ba05e86c49038a0c98545d';
 
   constructor(private http: HttpClient) {}
 
