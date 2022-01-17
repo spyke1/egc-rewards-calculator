@@ -14,7 +14,11 @@ export class CoinDataService {
   private cgApiUrl =
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=evergrowcoin';
 <<<<<<< HEAD
+<<<<<<< HEAD
   private XEEBAddress = '0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9';
+=======
+  private egcAddress = '0xc001bbe2b87079294c63ece98bdd0a88d761434e';
+>>>>>>> parent of e12909f (egc to xeeb)
 =======
   private egcAddress = '0xc001bbe2b87079294c63ece98bdd0a88d761434e';
 >>>>>>> parent of e12909f (egc to xeeb)
