@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { XEEBData } from './XEEBdata.model';
+import { EgcData } from './egcdata.model';
 import { CoinDataService } from '../services/coindata.service';
 import { ITokenData } from '../models/tokendata';
 import { BscResponse } from '../models/bscresponse';
@@ -10,19 +10,19 @@ import { BscResponse } from '../models/bscresponse';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  XEEBData: XEEBData = {
+  egcData: EgcData = {
     totalSupply: 1000000000000000,
     burnedTokens: 0,
     teamTokensHeld: 0,
     circulatingSupply: 1000000000000000,
     rewardPercent: 0.08,
     dailyVolume: 0,
-    XEEBHeld: 1000000000,
+    egcHeld: 1000000000,
   };
   tokenData: ITokenData;
   bscBurnedResult: BscResponse;
   bscTeamTokensResult: BscResponse;
-  bscWalletXEEBHeld: BscResponse;
+  bscWalletEGCHeld: BscResponse;
   walletAddress: string;
   totalRewardDistribution: number;
 
@@ -37,17 +37,17 @@ export class HomePage implements OnInit {
     this.getTokenData();
   }
 
-  getWalletAddressXEEBHeld() {
+  getWalletAddressEGCHeld() {
     if (this.walletAddress !== '') {
       this.coinDataService
-        .getBscWalletXEEBHeld(this.walletAddress)
+        .getBscWalletEGCHeld(this.walletAddress)
         .subscribe((data) => {
-          this.bscWalletXEEBHeld = data;
+          this.bscWalletEGCHeld = data;
           const value = parseFloat(data.result);
           if (!isNaN(value)) {
             const decValue = value * 0.000000001;
-            this.XEEBData.XEEBHeld = decValue;
-            this.saveLocalXEEBHeld();
+            this.egcData.egcHeld = decValue;
+            this.saveLocalEGCHeld();
             this.calculateRewards();
           }
           //console.log(data);
@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
       const value = parseFloat(data.result);
       if (!isNaN(value)) {
         const decValue = value * 0.000000001;
-        this.XEEBData.burnedTokens = decValue;
+        this.egcData.burnedTokens = decValue;
         this.saveLocalTokensBurned();
         this.updateCirculatingSupply();
         this.calculateRewards();
@@ -76,7 +76,7 @@ export class HomePage implements OnInit {
       const value = parseFloat(data.result);
       if (!isNaN(value)) {
         const decValue = value * 0.000000001;
-        this.XEEBData.teamTokensHeld = decValue;
+        this.egcData.teamTokensHeld = decValue;
         this.saveLocalTeamTokensHeld();
         this.calculateRewards();
       }
@@ -87,7 +87,7 @@ export class HomePage implements OnInit {
   getTokenData() {
     this.coinDataService.getCoinGeckoTokenData().subscribe((data) => {
       this.tokenData = data;
-      this.XEEBData.dailyVolume = this.tokenData.totalVolume;
+      this.egcData.dailyVolume = this.tokenData.totalVolume;
       this.saveLocalDailyVolume();
       this.calculateRewards();
       //console.log(data);
@@ -103,83 +103,83 @@ export class HomePage implements OnInit {
   }
 
   loadLocalWalletAddress() {
-    this.walletAddress = localStorage.getItem('XEEB_walletAddress');
+    this.walletAddress = localStorage.getItem('egc_walletAddress');
   }
 
   loadLocalTokensBurned() {
-    const stringValue = localStorage.getItem('XEEB_tokensBurned');
+    const stringValue = localStorage.getItem('egc_tokensBurned');
     const value = parseFloat(stringValue);
 
     if (!isNaN(value)) {
-      this.XEEBData.burnedTokens = value;
+      this.egcData.burnedTokens = value;
     }
   }
 
   loadLocalTeamTokensHeld() {
-    const stringValue = localStorage.getItem('XEEB_teamTokensHeld');
+    const stringValue = localStorage.getItem('egc_teamTokensHeld');
     const value = parseFloat(stringValue);
 
     if (!isNaN(value)) {
-      this.XEEBData.teamTokensHeld = value;
+      this.egcData.teamTokensHeld = value;
     }
   }
 
   loadLocalDailyVolume() {
-    const stringValue = localStorage.getItem('XEEB_dailyVolume');
+    const stringValue = localStorage.getItem('egc_dailyVolume');
     const value = parseFloat(stringValue);
 
     if (!isNaN(value)) {
-      this.XEEBData.dailyVolume = value;
+      this.egcData.dailyVolume = value;
     }
   }
 
   loadLocalTokensHeld() {
-    const stringValue = localStorage.getItem('XEEB_tokensHeld');
+    const stringValue = localStorage.getItem('egc_tokensHeld');
     const value = parseFloat(stringValue);
 
     if (!isNaN(value)) {
-      this.XEEBData.XEEBHeld = value;
+      this.egcData.egcHeld = value;
     }
   }
 
   saveLocalDailyVolume() {
     localStorage.setItem(
-      'XEEB_dailyVolume',
-      this.XEEBData.dailyVolume.toString()
+      'egc_dailyVolume',
+      this.egcData.dailyVolume.toString()
     );
   }
 
   saveLocalTokensBurned() {
     localStorage.setItem(
-      'XEEB_tokensBurned',
-      this.XEEBData.burnedTokens.toString()
+      'egc_tokensBurned',
+      this.egcData.burnedTokens.toString()
     );
   }
 
   saveLocalTeamTokensHeld() {
     localStorage.setItem(
-      'XEEB_teamTokensHeld',
-      this.XEEBData.teamTokensHeld.toString()
+      'egc_teamTokensHeld',
+      this.egcData.teamTokensHeld.toString()
     );
   }
 
   saveLocalWalletAddress() {
-    localStorage.setItem('XEEB_walletAddress', this.walletAddress);
+    localStorage.setItem('egc_walletAddress', this.walletAddress);
   }
 
-  saveLocalXEEBHeld() {
-    localStorage.setItem('XEEB_tokensHeld', this.XEEBData.XEEBHeld.toString());
+  saveLocalEGCHeld() {
+    localStorage.setItem('egc_tokensHeld', this.egcData.egcHeld.toString());
   }
 
   updateCirculatingSupply() {
-    this.XEEBData.circulatingSupply =
-      this.XEEBData.totalSupply - this.XEEBData.burnedTokens;
+    this.egcData.circulatingSupply =
+      this.egcData.totalSupply - this.egcData.burnedTokens;
   }
 
   rewardSupply() {
     // team tokens are now earning rewards 2021-12-01
-    // this.XEEBData.teamTokensHeld
-    return this.XEEBData.totalSupply - this.XEEBData.burnedTokens;
+    // this.egcData.teamTokensHeld
+    return this.egcData.totalSupply - this.egcData.burnedTokens;
   }
 
   calculateRewards() {
@@ -187,11 +187,11 @@ export class HomePage implements OnInit {
   }
 
   totalDistribution() {
-    return this.XEEBData.dailyVolume * this.XEEBData.rewardPercent;
+    return this.egcData.dailyVolume * this.egcData.rewardPercent;
   }
 
   effectivePercentage() {
-    return this.XEEBData.XEEBHeld / this.rewardSupply();
+    return this.egcData.egcHeld / this.rewardSupply();
   }
 
   // onChange Methods
@@ -200,7 +200,7 @@ export class HomePage implements OnInit {
     const parsedValue = parseFloat(value);
 
     if (!isNaN(parsedValue)) {
-      this.XEEBData.burnedTokens = parsedValue;
+      this.egcData.burnedTokens = parsedValue;
       this.saveLocalTokensBurned();
       this.updateCirculatingSupply();
       this.calculateRewards();
@@ -212,19 +212,19 @@ export class HomePage implements OnInit {
     const parsedValue = parseFloat(value);
 
     if (!isNaN(parsedValue)) {
-      this.XEEBData.dailyVolume = parsedValue;
+      this.egcData.dailyVolume = parsedValue;
       this.saveLocalDailyVolume();
       this.calculateRewards();
     }
   }
 
-  onChangeXEEBHeld(event: Event) {
+  onChangeEgcHeld(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     const parsedValue = parseFloat(value);
 
     if (!isNaN(parsedValue)) {
-      this.XEEBData.XEEBHeld = parsedValue;
-      this.saveLocalXEEBHeld();
+      this.egcData.egcHeld = parsedValue;
+      this.saveLocalEGCHeld();
       this.calculateRewards();
     }
   }

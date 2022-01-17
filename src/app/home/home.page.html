@@ -23,7 +23,7 @@
             <ion-label>Tokens Burned</ion-label>
             <ion-input
               class="ion-text-center"
-              [value]="XEEBData.burnedTokens"
+              [value]="egcData.burnedTokens"
               (input)="onChangeTokensBurned($event)"
               color="primary"
               autocomplete="off"
@@ -37,7 +37,7 @@
             <ion-label>Daily Volume</ion-label>
             <ion-input
               class="ion-text-center"
-              [value]="XEEBData.dailyVolume"
+              [value]="egcData.dailyVolume"
               (input)="onChangeDailyVolume($event)"
               color="primary"
               autocomplete="off"
@@ -49,12 +49,12 @@
 
           <ion-item>
             <ion-label>Total Supply</ion-label>
-            <ion-label>{{XEEBData.totalSupply}}</ion-label>
+            <ion-label>{{egcData.totalSupply}}</ion-label>
           </ion-item>
 
           <ion-item>
             <ion-label>Team+Airdrop</ion-label>
-            <ion-label>{{XEEBData.teamTokensHeld}}</ion-label>
+            <ion-label>{{egcData.teamTokensHeld}}</ion-label>
             <ion-button icon-only (click)="getBscTeamTokensData()">
               <ion-icon name="refresh-outline"></ion-icon>
             </ion-button>
@@ -63,7 +63,7 @@
           <ion-item>
             <ion-label>Circulating Supply</ion-label>
             <ion-label
-              >{{XEEBData.totalSupply - XEEBData.burnedTokens}}</ion-label
+              >{{egcData.totalSupply - egcData.burnedTokens}}</ion-label
             >
           </ion-item>
 
@@ -82,7 +82,7 @@
 
           <ion-item>
             <ion-label>Rewards %</ion-label>
-            <ion-label>{{XEEBData.rewardPercent | percent:'1.2'}}</ion-label>
+            <ion-label>{{egcData.rewardPercent | percent:'1.2'}}</ion-label>
           </ion-item>
         </ion-card>
 
@@ -101,7 +101,7 @@
               color="primary"
               autocomplete="off"
             ></ion-input>
-            <ion-button icon-only (click)="getWalletAddressXEEBHeld()">
+            <ion-button icon-only (click)="getWalletAddressEGCHeld()">
               <ion-icon name="refresh-outline"></ion-icon>
             </ion-button>
           </ion-item>
@@ -109,13 +109,13 @@
           <ion-item>
             <ion-label>XEEB Held</ion-label>
             <ion-input
-              [value]="XEEBData.XEEBHeld"
+              [value]="egcData.egcHeld"
               class="ion-text-center"
-              (input)="onChangeXEEBHeld($event)"
+              (input)="onChangeEgcHeld($event)"
               color="primary"
               autocomplete="off"
             ></ion-input>
-            <ion-button icon-only (click)="getWalletAddressXEEBHeld()">
+            <ion-button icon-only (click)="getWalletAddressEGCHeld()">
               <ion-icon name="refresh-outline"></ion-icon>
             </ion-button>
           </ion-item>
@@ -147,7 +147,7 @@
             storage for the next time you use this application.
           </ion-card-content>
           <ion-card-content>
-            Made with love by Jared Hodgkins. Find me on the official XEEB
+            Made with love by Jared Hodgkins. Find me on the official EGC
             Telegram if you notice any issues!
           </ion-card-content>
         </ion-card>
@@ -165,7 +165,7 @@
               >https://xeebster.com</a
             >
             <br />
-            XEEBSTER Rewards Dashboard:
+            EGC Rewards Dashboard:
             <a
               href="https://app.evergrowcoin.com/dashboard"
               target="_blank"
@@ -191,10 +191,10 @@
             <br />
             XEEBSTER Official Twitter:
             <a
-              href="https://twitter.com/evergrowcoinXEEB"
+              href="https://twitter.com/evergrowcoinEGC"
               target="_blank"
               rel="noopener noreferrer"
-              >https://twitter.com/evergrowcoinXEEB</a
+              >https://twitter.com/evergrowcoinEGC</a
             >
             <br />
             XEEBSTER Official Facebook:
@@ -233,7 +233,11 @@
           </ion-card-content>
 
           <ion-card-content>
+<<<<<<< HEAD
             XEEB Contract: 0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9
+=======
+            EGC Contract: 0xc001bbe2b87079294c63ece98bdd0a88d761434e
+>>>>>>> parent of e12909f (egc to xeeb)
             <a
               href="https://bscscan.com/address/0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9"
               target="_blank"
