@@ -13,7 +13,7 @@ export class HomePage implements OnInit {
   egcData: EgcData = {
     totalSupply: 1000000000000000,
     burnedTokens: 0,
-    teamTokensHeld: 0,
+    teamTokensHeld: 2000000000000,
     circulatingSupply: 1000000000000000,
     rewardPercent: 0.10,
     dailyVolume: 0,
