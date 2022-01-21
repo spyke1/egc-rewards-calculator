@@ -179,7 +179,7 @@ export class HomePage implements OnInit {
   rewardSupply() {
     // team tokens are now earning rewards 2021-12-01
     // this.egcData.teamTokensHeld
-    return this.egcData.totalSupply - this.egcData.burnedTokens - this.egcData.teamTokensHeld - this.egcData.teamTokensHeld;
+    return this.egcData.totalSupply - this.egcData.burnedTokens - this.egcData.teamTokensHeld;
   }
 
   calculateRewards() {
