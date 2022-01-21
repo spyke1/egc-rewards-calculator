@@ -187,7 +187,7 @@ export class HomePage implements OnInit {
   }
 
   totalDistribution() {
-    return this.egcData.dailyVolume * this.egcData.rewardPercent;
+    return 2000000000000 //this.egcData.dailyVolume * this.egcData.rewardPercent;
   }
 
   effectivePercentage() {
