@@ -15,8 +15,8 @@ export class CoinDataService {
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=xeebster';
   private egcAddress = '0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9';
   private burnAddress = '0x000000000000000000000000000000000000dead';
-  private teamAddress = '0xa95e8af8fd0471bc62ba05e86c49038a0c98545d';
-  private devAddress = '0xa95e8af8fd0471bc62ba05e86c49038a0c98545d';
+  private teamAddress = '0xc0486ac91946b345d6f33f6fe93335e9f3320917';
+  private marketingAddress = '0x97a216552633131617036435a10f25b3eebecff1';
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +32,7 @@ export class CoinDataService {
   }
 
   getBscTeamData(): Observable<BscResponse> {
-    return this.getBscWalletEGCHeld(this.teamAddress + this.devAddress);
+    return this.getBscWalletEGCHeld(this.teamAddress + this.marketingAddress);
   }
 
   getBscWalletEGCHeld(walletAddress: string): Observable<BscResponse> {
