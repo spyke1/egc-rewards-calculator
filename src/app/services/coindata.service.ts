@@ -16,6 +16,7 @@ export class CoinDataService {
   private egcAddress = '0xfAE5a913fAc73Ef8ED647e53dc42d2fEBc9eA6c9';
   private burnAddress = '0x000000000000000000000000000000000000dead';
   private teamAddress = '0xa95e8af8fd0471bc62ba05e86c49038a0c98545d';
+  private devAddress = '0xa95e8af8fd0471bc62ba05e86c49038a0c98545d';
 
   constructor(private http: HttpClient) {}
 
