@@ -179,7 +179,7 @@ export class HomePage implements OnInit {
   rewardSupply() {
     // team tokens are now earning rewards 2021-12-01
     // this.egcData.teamTokensHeld
-    return this.egcData.totalSupply - this.egcData.burnedTokens - this.egcData.teamTokensHeld;
+    return 20000000000000  //this.egcData.totalSupply - this.egcData.burnedTokens - this.egcData.teamTokensHeld;
   }
 
   calculateRewards() {
@@ -187,7 +187,7 @@ export class HomePage implements OnInit {
   }
 
   totalDistribution() {
-    return 20000000000000 //this.egcData.dailyVolume * this.egcData.rewardPercent;
+    return this.egcData.dailyVolume * this.egcData.rewardPercent;
   }
 
   effectivePercentage() {
