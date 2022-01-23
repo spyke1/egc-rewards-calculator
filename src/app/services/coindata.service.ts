@@ -32,7 +32,7 @@ export class CoinDataService {
   }
 
   getBscTeamData(): Observable<BscResponse> {
-    return this.getBscWalletEGCHeld(this.teamAddress) + this.getBscWalletEGCHeld(this.devAddress);
+    return this.getBscWalletEGCHeld(this.teamAddress) + this.getBscWalletEGCHeld(this.marketingAddress);
   }
 
   getBscWalletEGCHeld(walletAddress: string): Observable<BscResponse> {
